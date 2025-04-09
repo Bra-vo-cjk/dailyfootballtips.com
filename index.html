@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Football Tips</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 600px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        #payment-section {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        #tips-section {
+            margin-top: 20px;
+            display: none; /* Initially hidden */
+        }
+
+        #tips-section ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #tips-section li {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        #mpesa-prompt {
+            margin-top: 20px;
+            display: none;
+        }
+
+        #payment-status {
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        #payment-button{
+          background-color: green;
+          color: white;
+          padding: 10px 20px;
+          border:none;
+          border-radius: 5px;
+          cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Daily Football Tips</h1>
+
+        <div id="payment-section">
+            <p>To access today's football tips, please make a payment of KES 100 via M-Pesa.</p>
+            <button id="payment-button" onclick="initiatePayment()">Pay with M-Pesa</button>
+            <div id="mpesa-prompt">
+                <p>Enter your M-Pesa phone number:</p>
+                <input type="text" id="mpesa-number" placeholder="2547XXXXXXXX">
+                <button onclick="confirmPayment()">Confirm Payment</button>
+                <div id="payment-status"></div>
+            </div>
+        </div>
+
+        <div id="tips-section">
+            <h2>Today's Tips:</h2>
+            <ul id="tips-list">
+                </ul>
+        </div>
+    </div>
+
+    <script>
+        function initiatePayment() {
+            document.getElementById('mpesa-prompt').style.display = 'block';
+        }
+
+        function confirmPayment() {
+            const mpesaNumber = document.getElementById('mpesa-number').value;
+            const paymentStatus = document.getElementById('payment-status');
+            paymentStatus.textContent = "Processing payment...";
+            //Simulate payment process. In real app, you would use an API.
+            setTimeout(function() {
+              const paymentSuccessful = Math.random() < 0.8; // 80% chance of success
+              if (paymentSuccessful) {
+                paymentStatus.textContent = "Payment successful!";
+                displayTips();
+              } else {
+                paymentStatus.textContent = "Payment failed. Please try again.";
+              }
+
+            }, 2000);
+
+        }
+
+        function displayTips() {
+            document.getElementById('payment-section').style.display = 'none';
+            document.getElementById('tips-section').style.display = 'block';
+
+            // Replace with actual tips fetched from your backend or database.
+            const tips = [
+                "Match 1: Team A to win",
+                "Match 2: Over 2.5 goals",
+                "Match 3: Both teams to score",
+                "Match 4: Draw"
+            ];
+
+            const tipsList = document.getElementById('tips-list');
+            tips.forEach(tip => {
+                const li = document.createElement('li');
+                li.textContent = tip;
+                tipsList.appendChild(li);
+            });
+        }
+    </script>
+</body>
+</html>
